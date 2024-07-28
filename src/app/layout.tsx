@@ -7,6 +7,22 @@ const fontSans = FontSans({
 	subsets: ['latin'],
 	variable: '--font-sans',
 });
+export const metadata = {
+	title: 'Omnidirectory',
+	description: 'Never lose your files again. An AI file manager',
+	metadataBase: new URL('https://omnidirectory.byjit.com'),
+	keywords: [
+		'openai',
+		'ai',
+		'file manager',
+		'best',
+		'top',
+		'advanced',
+		'productivity',
+		'chat gpt',
+		'top rank',
+	],
+};
 
 export default function RootLayout({
 	children,
