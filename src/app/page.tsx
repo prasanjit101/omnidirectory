@@ -5,6 +5,7 @@ import UploadForm from '@/components/Uploadform';
 import SearchPanel from '@/components/SearchPanel';
 import HowItWorks from '@/components/HowItWorks';
 import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function Home() {
 	return (
@@ -13,10 +14,28 @@ export default function Home() {
 				<h1 className="text-3xl font-bold">Omnidirectory - The AI File Manager</h1>
 				<h3 className="text-lg font-semibold">#Never lose your files again</h3>
 			</div>
-			<HowItWorks />
-			<UploadForm />
-			<Separator />
-			<SearchPanel />
+			<Tabs defaultValue="upload" className="w-full">
+				<TabsList className="w-full my-5">
+					<TabsTrigger className="w-1/3" value="upload">
+						Upload Files
+					</TabsTrigger>
+					<TabsTrigger className="w-1/3" value="files">
+						Search Files
+					</TabsTrigger>
+					<TabsTrigger className="w-1/3" value="hiw">
+						How it works
+					</TabsTrigger>
+				</TabsList>
+				<TabsContent value="upload" className="min-h-96">
+					<UploadForm />
+				</TabsContent>
+				<TabsContent value="hiw" className="min-h-96">
+					<HowItWorks />
+				</TabsContent>
+				<TabsContent value="files" className="min-h-96">
+					<SearchPanel />
+				</TabsContent>
+			</Tabs>
 		</main>
 	);
 }

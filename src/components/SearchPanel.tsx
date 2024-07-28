@@ -5,13 +5,16 @@ import { Button } from './ui/button';
 import { PineconeMetadata } from '@/dto/pinecone.dto';
 import { Card } from './ui/card';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 export default function SearchPanel() {
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchText, setSearchText] = useState('');
+	const [searching, setSearching] = useState(false);
 
 	const handleSearchFiles = () => {
 		if (searchText) {
+			setSearching(true);
 			fetch('/api/search', {
 				method: 'POST',
 				headers: {
@@ -21,29 +24,35 @@ export default function SearchPanel() {
 			})
 				.then((res) => res.json())
 				.then((data) => {
+					toast.success(data.message ?? 'Search performed');
+					setSearching(false);
 					setSearchResults(data.results);
 				})
 				.catch((error) => {
+					setSearching(false);
 					console.log(error);
+					toast.error(error?.message ?? 'Search failed');
 				});
 		}
 	};
 
 	return (
-		<div className="w-full space-y-4">
+		<Card className="w-full space-y-4 p-7">
 			<h3 className="text-xl">Search for files</h3>
 			<div className="w-full flex">
 				<Input
 					onChange={(e) => setSearchText(e.target.value)}
 					placeholder="Enter anything that you remember about the file"
 				/>
-				<Button onClick={() => handleSearchFiles()}>Search</Button>
+				<Button disabled={searching} onClick={() => handleSearchFiles()}>
+					Search
+				</Button>
 			</div>
 			<div className="w-full text-center space-y-4">
 				{searchResults.length > 0 ? (
 					<div className="">
 						{searchResults.map(({ metadata }: { metadata: PineconeMetadata }) => (
-							<Card className="p-6 text-left space-y-3">
+							<Card className="p-6 my-3 text-left space-y-3">
 								<p className="text-lg font-semibold">{metadata.title}</p>
 								<p>{metadata.context}</p>
 								<p className="text-sm">Created on {metadata.lastModified}</p>
@@ -61,9 +70,9 @@ export default function SearchPanel() {
 						))}
 					</div>
 				) : (
-					<p>No results found</p>
+					<p className="text-sm">No results found</p>
 				)}
 			</div>
-		</div>
+		</Card>
 	);
 }

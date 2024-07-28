@@ -26,7 +26,7 @@ export async function generateMetadata({
 	]);
 
 	const fileMetadata =
-		`file name: ${fileName}\nlast modified: ${lastModified}\ncontent type: ${contentType}\n` +
+		`file name: ${fileName}\ncreated on: ${lastModified}\ncontent type: ${contentType}\n` +
 		(context ? `description: ${context}\n` : '');
 
 	const generatedContext = await generateFileContextPrompt

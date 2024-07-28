@@ -3,7 +3,7 @@ import { Card } from './ui/card';
 
 export default function HowItWorks() {
 	return (
-		<Card className="p-7 space-y-5">
+		<Card className="p-9 space-y-5">
 			<h3 className="text-2xl font-bold">How it works?</h3>
 			<ul className="list-decimal p-4 space-y-4">
 				<li>
@@ -16,14 +16,11 @@ export default function HowItWorks() {
 					find the file. Just enter whatever you remember about it.
 				</li>
 			</ul>
-			<p className="text-sm">
+			<p className="">
 				NOTE. If the context is not given, the file will be stored with the name and
 				additional metadata like the date created, file type, etc.
 			</p>
-			<div className="w-full text-center py-9">
-				<p className="text-sm">Scroll down</p>
-				<ArrowDown className="w-6 h-6 mx-auto" />
-			</div>
+			<p className="">No content of your file is read, ensuring the security of your data.</p>
 		</Card>
 	);
 }

@@ -5,10 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { ChangeEvent, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Component() {
 	const [uploadedFile, setUploadedFile] = useState<File>();
 	const [context, setContext] = useState('');
+	const [uploading, setUploading] = useState(false);
+
 	const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB to bytes
 
 	const handleUpload = () => {
@@ -18,13 +21,23 @@ export default function Component() {
 		if (uploadedFile) {
 			formData.set('file', uploadedFile);
 		}
+
+		setUploading(true);
 		fetch('/api/upload', {
 			method: 'POST',
 			body: formData,
 		})
 			.then((response) => response.json())
-			.then((data) => console.log(data))
-			.catch((error) => console.error(error));
+			.then((data) => {
+				setUploading(false);
+				toast(data.message ?? 'File uploaded');
+				setContext('');
+			})
+			.catch((error) => {
+				setUploading(false);
+				console.log(error);
+				toast.error(error?.message ?? 'Upload failed');
+			});
 	};
 
 	const onFileInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,8 +83,8 @@ export default function Component() {
 							onChange={(e) => setContext(e.target.value)}
 						/>
 					</div>
-					<Button onClick={() => handleUpload()} className="w-full">
-						Submit
+					<Button disabled={uploading} onClick={() => handleUpload()} className="w-full">
+						Submit{uploading ? 'ting' : ''}
 					</Button>
 				</div>
 			</CardContent>
