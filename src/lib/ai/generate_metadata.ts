@@ -21,14 +21,13 @@ export async function generateMetadata({
 		],
 		[
 			'user',
-			'Given the following metadata about a file. Generate a detailed description on the context of the file. Please only generate the detailed context and nothing else.\n\nMetadata of the file: \n{metadata}',
+			'Given the following metadata about a file. Generate a description on the context of the file. Please only generate the detailed context and nothing else.\n\nMetadata of the file: \n{metadata}',
 		],
 	]);
 
 	const fileMetadata =
-		`file name: ${fileName}\nlast modified: ${lastModified}\ncontent type: ${contentType}\n` + context
-			? `description: ${context}\n`
-			: '';
+		`file name: ${fileName}\nlast modified: ${lastModified}\ncontent type: ${contentType}\n` +
+		(context ? `description: ${context}\n` : '');
 
 	const generatedContext = await generateFileContextPrompt
 		.pipe(model)
@@ -39,10 +38,11 @@ export async function generateMetadata({
 	return {
 		metadata: {
 			title: fileName,
-			context: generatedContext,
+			context,
+			description: generatedContext,
 			lastModified,
 			contentType,
-			fileRef: 'gs://mento-8c9e0.appspot.com/public/files/' + fileName.replace(/ /g, '_'),
+			fileRef: 'public/files/' + fileName.replace(/ /g, '_'),
 		},
 		generatedContext,
 	};

@@ -14,7 +14,7 @@ export const POST = async (req: any, res: any) => {
 		return NextResponse.json({ error: 'No files received.' }, { status: 400 });
 	}
 	const fileName = file.name;
-	const lastModified = file.lastModified.toLocaleString();
+	const lastModified = formData.get('lastModified');
 	const contentType = file.type;
 	const fileSize = file.size;
 	try {

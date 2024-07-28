@@ -14,6 +14,7 @@ export default function Component() {
 	const handleUpload = () => {
 		const formData = new FormData();
 		formData.set('context', context);
+		formData.set('lastModified', new Date().toLocaleString());
 		if (uploadedFile) {
 			formData.set('file', uploadedFile);
 		}
