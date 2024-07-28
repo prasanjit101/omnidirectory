@@ -51,8 +51,8 @@ export default function SearchPanel() {
 			<div className="w-full text-center space-y-4">
 				{searchResults.length > 0 ? (
 					<div className="">
-						{searchResults.map(({ metadata }: { metadata: PineconeMetadata }) => (
-							<Card className="p-6 my-3 text-left space-y-3">
+						{searchResults.map(({ metadata }: { metadata: PineconeMetadata }, i) => (
+							<Card key={i} className="p-6 my-3 text-left space-y-3">
 								<p className="text-lg font-semibold">{metadata.title}</p>
 								<p>{metadata.context}</p>
 								<p className="text-sm">Created on {metadata.lastModified}</p>
