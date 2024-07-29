@@ -16,14 +16,14 @@ export default function Home() {
 			</div>
 			<Tabs defaultValue="upload" className="w-full">
 				<TabsList className="w-full my-5">
+					<TabsTrigger className="w-1/3" value="hiw">
+						How it works
+					</TabsTrigger>
 					<TabsTrigger className="w-1/3" value="upload">
 						Upload Files
 					</TabsTrigger>
 					<TabsTrigger className="w-1/3" value="files">
 						Search Files
-					</TabsTrigger>
-					<TabsTrigger className="w-1/3" value="hiw">
-						How it works
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="upload" className="min-h-96">
