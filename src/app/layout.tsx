@@ -9,7 +9,7 @@ const fontSans = FontSans({
 });
 export const metadata = {
 	title: 'Omnidirectory',
-	description: 'Never lose your files again. An AI file manager',
+	description: 'Never lose your files again when you need them the most.',
 	metadataBase: new URL('https://omnidirectory.byjit.com'),
 	keywords: [
 		'openai',

@@ -13,7 +13,7 @@ export const POST = async (req: NextRequest, res: any) => {
 		const embeddingModel = getEmbeddingsModel();
 		const embedding = await embeddingModel.embedQuery(searchText);
 		const records = await pineconeIndex.query({
-			topK: 2,
+			topK: 3,
 			vector: embedding,
 			includeMetadata: true,
 			includeValues: false,
